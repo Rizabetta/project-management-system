@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "nanoid": "^5.0.1",
-    "sass": "^1.69.3"
-  }
-}
