@@ -5,7 +5,6 @@ import styles from "./Header.module.scss";
 export default function Header() {
   return (
     <header className={styles.header}>
-      {/* <Link href="/test">help</Link>Header */}
       <div className={styles.container}>
         <Link href="/" className={styles.link}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
@@ -45,6 +44,27 @@ export default function Header() {
           >
             <title />
             <path d="m40.62 28.34-.87-.7a2 2 0 0 1-.75-1.56V18A15 15 0 0 0 26.91 3.29a3 3 0 0 0-5.81 0A15 15 0 0 0 9 18v8.08a2 2 0 0 1-.75 1.56l-.87.7a9 9 0 0 0-3.38 7V37a4 4 0 0 0 4 4h8.26a8 8 0 0 0 15.47 0H40a4 4 0 0 0 4-4v-1.64a9 9 0 0 0-3.38-7.02ZM24 43a4 4 0 0 1-3.44-2h6.89A4 4 0 0 1 24 43Zm16-6H8v-1.64a5 5 0 0 1 1.88-3.9l.87-.7A6 6 0 0 0 13 26.08V18a11 11 0 0 1 22 0v8.08a6 6 0 0 0 2.25 4.69l.87.7A5 5 0 0 1 40 35.36Z" />
+          </svg>
+        </Link>
+        <Link href="/chart" className={styles.link}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlSpace="preserve"
+            style={{
+              shapeRendering: "geometricPrecision",
+              textRendering: "geometricPrecision",
+              fillRule: "evenodd",
+              clipRule: "evenodd",
+            }}
+            viewBox="0 0 270.92 270.92"
+          >
+            <path
+              d="M246.56 104.38h-80.09V34.13c28.07 7.53 51.69 27.11 64.22 53.76a7.906 7.906 0 0 0 10.56 3.8c3.96-1.87 5.67-6.59 3.81-10.55-16.12-34.24-47.98-58.43-85.2-64.68-2.33-.37-4.66.26-6.45 1.76a7.968 7.968 0 0 0-2.8 6.07v88.03c0 4.39 3.54 7.94 7.93 7.94h88.02c4.39 0 7.94-3.55 7.94-7.94a7.94 7.94 0 0 0-7.94-7.94zm-31.74 39.08h-87.29V82.28c0-4.37-3.55-7.93-7.94-7.93-4.39 0-7.94 3.56-7.94 7.93v69.12c0 4.39 3.55 7.93 7.94 7.93h86.94c-4.01 44.44-41.47 79.36-86.94 79.36-48.13 0-87.29-39.16-87.29-87.29 0-48.14 39.16-87.3 87.29-87.3 4.39 0 7.94-3.56 7.94-7.93 0-4.39-3.55-7.94-7.94-7.94-56.88 0-103.17 46.28-103.17 103.17 0 56.88 46.29 103.16 103.17 103.16 56.89 0 103.16-46.28 103.16-103.16 0-4.39-3.54-7.94-7.93-7.94z"
+              style={{
+                fill: "#000",
+                fillRule: "nonzero",
+              }}
+            />
           </svg>
         </Link>
       </div>
