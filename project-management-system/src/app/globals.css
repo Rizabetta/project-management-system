@@ -16,6 +16,16 @@
   }
 }
 
+@font-face {
+  font-family: Ubuntu-Medium;
+  src: url(../../public/fonts/Ubuntu/Ubuntu-Medium.ttf);
+}
+
+@font-face {
+  font-family: Ubuntu-Bold;
+  src: url(../../public/fonts/Ubuntu/Ubuntu-Bold.ttf);
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
