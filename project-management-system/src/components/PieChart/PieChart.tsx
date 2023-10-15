@@ -18,7 +18,7 @@ type Props = {
 export default function PieChart({ data }: Props) {
   return (
     <div className={styles.container}>
-      <Pie data={data} />;
+      <Pie data={data} />
     </div>
   );
 }
