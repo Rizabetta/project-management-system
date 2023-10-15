@@ -35,3 +35,26 @@
   display: flex;
   margin-bottom: 16px;
 }
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  h3 {
+    font-family: Ubuntu-Medium;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  p {
+    font-family: Ubuntu-Medium;
+  }
+
+  input {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 16px 0;
+  }
+
+  input[type="date"] {
+    width: 150px;
+  }
+}
