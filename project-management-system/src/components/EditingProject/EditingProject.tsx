@@ -5,6 +5,9 @@ import EditableDate from "./_components/EditableDate";
 import EditableSelect from "./_components/EditableSelect";
 import { nanoid as generateUniqueKey } from "nanoid";
 import EditableParticipants from "./_components/EditableParticipants";
+import styles from "./EditingProject.module.scss";
+import Image from "next/image";
+
 interface FormData {
   name: string;
   description: string;
@@ -36,7 +39,7 @@ export default function EditingProject({ onSubmit }: MyFormProps) {
     timeline: { from: "", to: "" },
     responsiblePerson: "",
     participants: [],
-    status: "test",
+    status: "status",
   });
 
   const changeTextHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +79,7 @@ export default function EditingProject({ onSubmit }: MyFormProps) {
       title: "Статус",
       options: [
         { value: "в работе" },
-        { value: "завершен" },
+        { value: "закрыт" },
         { value: "не начат" },
       ],
       name: "status",
@@ -111,8 +114,15 @@ export default function EditingProject({ onSubmit }: MyFormProps) {
   console.log(formData);
 
   return (
-    <section>
-      <h3>Редактирование проекта</h3>
+    <section className={styles.container}>
+      <Image
+        src="/svg/pencil-striped.svg"
+        width={30}
+        height={30}
+        alt="Изображение кнопки"
+      />
+      <h3 className={styles.title}>Редактирование проекта</h3>
+
       {editableTextList.map(({ title, name, value }) => (
         <EditableText
           key={generateUniqueKey()}

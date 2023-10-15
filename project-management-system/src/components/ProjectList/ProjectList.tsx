@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import Link from "next/link";
 import Image from "next/image";
 import styles from "./ProjectList.module.scss";
 
@@ -35,9 +36,9 @@ export default function ProjectList() {
           />
         </button>
       </div>
-      {projectList.map((element) => (
+      {projectList.map((element, index) => (
         <div className={styles.entry} key={generateUniqueKey()}>
-          <p>{element}</p>
+          <Link href={`/project/${index}`}><p>{element}</p></Link>
           <Image
             src="/svg/pencil-striped.svg"
             width={30}
