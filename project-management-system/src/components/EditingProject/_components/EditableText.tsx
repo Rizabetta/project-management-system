@@ -1,28 +1,34 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, memo, useEffect, useState } from "react";
 
 type Props = {
   isEdit: boolean;
   name: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (a: string, b: string) => void;
   value: string;
   title: string;
+  isSave: boolean;
 };
 
-export default function EditableText({
-  isEdit,
-  name,
-  onChange,
-  value,
-  title,
-}: Props) {
+function EditableText({ isEdit, name, onChange, value, title, isSave }: Props) {
+  const [text, setText] = useState(value);
+  const localChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
+  };
+
   return (
     <div>
       {title}:
       {isEdit ? (
-        <input name={name} value={value} onChange={onChange}></input>
+        <input
+          name={name}
+          value={text}
+          onChange={localChange}
+          onBlurCapture={() => onChange(name, text)}
+        />
       ) : (
         value
       )}
     </div>
   );
 }
+export default memo(EditableText);

@@ -20,7 +20,7 @@ export default function EditableSelect({
     <div>
       <select onChange={onChange} name={name}>
         {options.map((option) => (
-          <option key={option.value} value={option.id ?? option.value}>
+          <option selected={option.value === value} key={option.value} value={option.id ?? option.value}>
             {option.value}
           </option>
         ))}

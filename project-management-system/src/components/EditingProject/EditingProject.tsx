@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import EditableText from "./_components/EditableText";
 import EditableDate from "./_components/EditableDate";
 import EditableSelect from "./_components/EditableSelect";
@@ -31,6 +31,7 @@ interface MyFormProps {
 }
 export default function EditingProject({ onSubmit }: MyFormProps) {
   const [isEdit, setIsEdit] = useState(false);
+  const [isSave, setIsSave] = useState(false);
 
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -39,38 +40,63 @@ export default function EditingProject({ onSubmit }: MyFormProps) {
     timeline: { from: "", to: "" },
     responsiblePerson: "",
     participants: [],
-    status: "status",
+    status: "статус не указан",
   });
 
-  const changeTextHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const [localData, setlocalData] = useState<FormData>(
+    formData ?? {
+      name: "",
+      description: "",
+      objective: "",
+      timeline: { from: "", to: "" },
+      responsiblePerson: "",
+      participants: [],
+      status: "status",
+    }
+  );
+  useEffect(() => {
+    setlocalData(
+      formData ?? {
+        name: "",
+        description: "",
+        objective: "",
+        timeline: { from: "", to: "" },
+        responsiblePerson: "",
+        participants: [],
+        status: "status",
+      }
+    );
+  }, [formData]);
+
+  const changeTextHandler = (key: string, value: string) => {
+    setlocalData({ ...localData, [key]: value });
   };
 
   const changeTimelineHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      timeline: { ...formData.timeline, [e.target.name]: e.target.value },
+    setlocalData({
+      ...localData,
+      timeline: { ...localData.timeline, [e.target.name]: e.target.value },
     });
   };
   const changeSelectHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setlocalData({ ...localData, [e.target.name]: e.target.value });
   };
 
   const editableTextList = [
     {
       title: "Наименование проекта",
       name: "name",
-      value: formData.name,
+      value: localData.name,
     },
     {
       title: "Описание проекта",
       name: "description",
-      value: formData.description,
+      value: localData.description,
     },
     {
       title: "Цель проекта",
       name: "objective",
-      value: formData.objective,
+      value: localData.objective,
     },
   ];
 
@@ -83,35 +109,45 @@ export default function EditingProject({ onSubmit }: MyFormProps) {
         { value: "не начат" },
       ],
       name: "status",
-      value: formData.status,
+      value: localData.status,
     },
     {
       title: "Ответственное лицо",
       options: users.map(({ id, name }) => ({ id, value: name })),
       name: "responsiblePerson",
       value:
-        users.find((user) => user.id === formData.responsiblePerson)?.name ??
+        users.find((user) => user.id === localData.responsiblePerson)?.name ??
         "не указан",
     },
   ];
 
   const onParticipantsAdd = (id: string) => {
-    const res = formData.participants;
+    const res = localData.participants;
     const currentUser = users.find((u) => u.id === id);
     if (currentUser) {
       res.push(currentUser);
-      setFormData({ ...formData, participants: res });
+      setlocalData({ ...localData, participants: res });
     }
   };
 
   const onParticipantsRemove = (id: string) => {
-    setFormData({
-      ...formData,
-      participants: formData.participants.filter((p) => p.id !== id),
+    setlocalData({
+      ...localData,
+      participants: localData.participants.filter((p) => p.id !== id),
     });
   };
 
-  console.log(formData);
+  const onSave = () => {
+    setFormData(localData);
+    setIsEdit(false);
+    setIsSave(true);
+  };
+  const onCancel = () => {
+    setlocalData(formData);
+    setIsEdit(false);
+    setIsSave(false);
+  };
+  console.log(localData);
 
   return (
     <section className={styles.container}>
@@ -125,6 +161,7 @@ export default function EditingProject({ onSubmit }: MyFormProps) {
 
       {editableTextList.map(({ title, name, value }) => (
         <EditableText
+          isSave={isSave}
           key={generateUniqueKey()}
           title={title}
           isEdit={isEdit}
@@ -135,7 +172,7 @@ export default function EditingProject({ onSubmit }: MyFormProps) {
       ))}
       <EditableDate
         onChange={changeTimelineHandler}
-        timeline={formData.timeline}
+        timeline={localData.timeline}
         isEdit={isEdit}
       />
       {editableSelectList.map(({ options, name, value }) => (
@@ -153,11 +190,12 @@ export default function EditingProject({ onSubmit }: MyFormProps) {
         onAdd={onParticipantsAdd}
         isEdit={isEdit}
         values={users}
-        currentValues={formData.participants}
+        currentValues={localData.participants}
       />
-      <button onClick={() => setIsEdit(!isEdit)}>
+      <button onClick={() => (isEdit ? onSave() : setIsEdit(!isEdit))}>
         {isEdit ? "Сохранить" : "Редактировать"}
       </button>
+      {isEdit && <button onClick={onCancel}>Отменить</button>}
     </section>
   );
 }
